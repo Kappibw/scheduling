@@ -10,7 +10,7 @@ from typing import List, Dict, Any
 
 from common.tasks import Task, TaskType, TaskManager
 from common.resources import Resource, ResourceType, ResourceManager
-from algorithms import MILPScheduler
+from algorithms.milp.simple_milp_scheduler import SimpleMILPScheduler
 from common.visualization import ScheduleVisualizer, GanttChart
 
 
@@ -116,10 +116,10 @@ def run_scheduling_demo():
     print(f"Created {len(tasks)} tasks and {len(resources)} resources")
     
     # Create scheduler
-    scheduler = MILPScheduler(solver="CBC", time_limit=60)
+    scheduler = SimpleMILPScheduler(time_limit=60)
     scheduler.set_managers(task_manager, resource_manager)
     
-    print(f"Using {scheduler.name} with {scheduler.solver} solver")
+    print(f"Using {scheduler.name}")
     
     # Run scheduling
     print("\n🔄 Running scheduling algorithm...")
@@ -207,11 +207,11 @@ def main():
             resource_manager.add_resource(resource)
         
         # Create scheduler
-        scheduler = MILPScheduler(solver=args.solver, time_limit=args.time_limit)
+        scheduler = SimpleMILPScheduler(time_limit=args.time_limit)
         scheduler.set_managers(task_manager, resource_manager)
         
         # Run scheduling
-        print(f"Running {scheduler.name} with {args.solver} solver...")
+        print(f"Running {scheduler.name}...")
         result = scheduler.schedule(tasks, resources)
         
         if result.status.value == "success":

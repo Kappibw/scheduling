@@ -16,20 +16,21 @@ RUN apt-get update && apt-get install -y \
 COPY requirements/ requirements/
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements/base.txt
+RUN pip install --no-cache-dir -r requirements/simple.txt -r requirements/jupyter.txt
 
 # Copy source code
 COPY src/ src/
 COPY tests/ tests/
+COPY research.py research.py
 
 # Set Python path
 ENV PYTHONPATH=/app
 
-# Create directories for data and results
-RUN mkdir -p /app/data /app/results
+# Create directories
+RUN mkdir -p /app/test_cases /app/results /app/notebooks
 
-# Expose port
-EXPOSE 8000
+# Expose Jupyter port
+EXPOSE 8888
 
-# Default command
-CMD ["python", "src/main.py"]
+# Start Jupyter Lab
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]

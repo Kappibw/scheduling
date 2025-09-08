@@ -8,8 +8,8 @@ from datetime import datetime, timedelta
 from dataclasses import dataclass
 from enum import Enum
 
-from ..common.tasks import Task, TaskManager
-from ..common.resources import Resource, ResourceManager
+from src.common.tasks import Task, TaskManager
+from src.common.resources import Resource, ResourceManager
 
 
 class ScheduleStatus(Enum):

@@ -4,7 +4,7 @@ services:
   scheduler:
     build:
       context: .
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/Dockerfile.simple
     container_name: robot-scheduler
     volumes:
       - ./src:/app/src
@@ -16,7 +16,7 @@ services:
       - PYTHONUNBUFFERED=1
     ports:
       - "8000:8000"
-    command: python src/main.py
+    command: python src/main.py --demo
     depends_on:
       - redis
       - postgres
@@ -37,7 +37,7 @@ services:
       POSTGRES_USER: scheduler
       POSTGRES_PASSWORD: scheduler
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

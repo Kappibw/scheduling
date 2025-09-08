@@ -3,6 +3,6 @@ Scheduling algorithms for robot task scheduling.
 """
 
 from .base import BaseScheduler, ScheduleResult
-from .milp import MILPScheduler
+from .milp.simple_milp_scheduler import SimpleMILPScheduler
 
-__all__ = ["BaseScheduler", "ScheduleResult", "MILPScheduler"]
+__all__ = ["BaseScheduler", "ScheduleResult", "SimpleMILPScheduler"]

@@ -2,7 +2,7 @@
 Resource management functionality for robot scheduling.
 """
 
-from typing import List, Dict, Optional, Set
+from typing import List, Dict, Optional, Set, Any
 from datetime import datetime
 from .resource import Resource, ResourceStatus, ResourceType
 

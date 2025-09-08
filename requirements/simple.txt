@@ -1,10 +1,10 @@
+# Simplified requirements for basic functionality
 # Core dependencies
 numpy>=1.21.0,<2.0.0
 pandas>=1.5.0,<3.0.0
 scipy>=1.9.0,<2.0.0
 
-# Optimization
-cvxpy>=1.3.0
+# Optimization (using OR-Tools only, no CVXPY)
 ortools>=9.6.0
 
 # Data handling

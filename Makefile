@@ -1,41 +1,42 @@
-# Makefile for Robot Scheduling System
+# Makefile for Robot Scheduling Research System
 
-.PHONY: help build up down clean test lint format install dev
+.PHONY: help build up down clean test lint format install dev research
 
 # Default target
 help:
-	@echo "Robot Scheduling System - Available commands:"
-	@echo "  build     - Build Docker images"
-	@echo "  up        - Start all services"
-	@echo "  down      - Stop all services"
+	@echo "Robot Scheduling Research System - Available commands:"
+	@echo "  build     - Build research Docker image"
+	@echo "  up        - Start research environment"
+	@echo "  down      - Stop research environment"
 	@echo "  clean     - Clean up containers and volumes"
 	@echo "  test      - Run tests"
 	@echo "  lint      - Run linting"
 	@echo "  format    - Format code"
 	@echo "  install   - Install dependencies locally"
 	@echo "  dev       - Start development environment"
+	@echo "  research  - Run algorithm research and comparison"
+	@echo "  jupyter   - Start Jupyter Lab"
 
 # Docker commands
 build:
-	docker-compose build
+	docker-compose -f docker-compose.research.yml build
 
 up:
-	docker-compose up -d
+	docker-compose -f docker-compose.research.yml up -d
 
 down:
-	docker-compose down
+	docker-compose -f docker-compose.research.yml down
 
 clean:
-	docker-compose down -v --remove-orphans
+	docker-compose -f docker-compose.research.yml down -v --remove-orphans
 	docker system prune -f
 
 # Development commands
 install:
-	pip install -r requirements/base.txt
+	pip install -r requirements/simple.txt
 
 dev:
-	pip install -r requirements/dev.txt
-	pre-commit install
+	pip install -r requirements/simple.txt -r requirements/jupyter.txt
 
 # Testing and quality
 test:
@@ -53,6 +54,14 @@ format:
 setup-dirs:
 	mkdir -p data results logs notebooks
 
+# Research commands
+research:
+	docker-compose -f docker-compose.research.yml exec research python research.py
+
+jupyter:
+	@echo "Jupyter Lab available at: http://localhost:8888"
+	@echo "No password required for development"
+
 # Run demo
 demo:
 	python src/main.py --demo
@@ -61,10 +70,6 @@ demo:
 run:
 	python src/main.py --tasks data/tasks.json --resources data/resources.json
 
-# Jupyter notebook
-notebook:
-	docker-compose up jupyter
-
 # Full setup
 setup: setup-dirs install
-	@echo "Setup complete! Run 'make demo' to test the system."
+	@echo "Setup complete! Run 'make research' to test the system."

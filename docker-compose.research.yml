@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  research:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.research
+    container_name: scheduling-research
+    volumes:
+      - ./src:/app/src
+      - ./tests:/app/tests
+      - ./test_cases:/app/test_cases
+      - ./results:/app/results
+      - ./notebooks:/app/notebooks
+    environment:
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8888:8888"  # Jupyter Lab
+    command: jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''
+    stdin_open: true
+    tty: true

@@ -16,7 +16,7 @@ from ...common.resources import Resource, ResourceType
 class MILPScheduler(BaseScheduler):
     """Mixed Integer Linear Programming scheduler for robot tasks."""
     
-    def __init__(self, solver: str = "GUROBI", time_limit: int = 300):
+    def __init__(self, solver: str = "CBC", time_limit: int = 300):
         super().__init__("MILPScheduler")
         self.solver = solver
         self.time_limit = time_limit
@@ -165,7 +165,11 @@ class MILPScheduler(BaseScheduler):
         
         try:
             if self.solver == "GUROBI":
-                model.solve(solver=cp.GUROBI, verbose=True)
+                try:
+                    model.solve(solver=cp.GUROBI, verbose=True)
+                except Exception:
+                    print("Gurobi not available, falling back to CBC")
+                    model.solve(solver=cp.CBC, verbose=True)
             elif self.solver == "CBC":
                 model.solve(solver=cp.CBC, verbose=True)
             else:

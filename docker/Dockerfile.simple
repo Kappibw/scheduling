@@ -8,15 +8,13 @@ RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
     libgomp1 \
-    git \
-    cmake \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first for better caching
 COPY requirements/ requirements/
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements/base.txt
+# Install Python dependencies (simplified)
+RUN pip install --no-cache-dir -r requirements/simple.txt
 
 # Copy source code
 COPY src/ src/

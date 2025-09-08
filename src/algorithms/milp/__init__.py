@@ -2,6 +2,6 @@
 MILP (Mixed Integer Linear Programming) scheduling algorithm.
 """
 
-from .milp_scheduler import MILPScheduler
+from .simple_milp_scheduler import SimpleMILPScheduler
 
-__all__ = ["MILPScheduler"]
+__all__ = ["SimpleMILPScheduler"]
