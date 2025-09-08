@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  scheduler:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: robot-scheduler
+    volumes:
+      - ./src:/app/src
+      - ./tests:/app/tests
+      - ./data:/app/data
+      - ./results:/app/results
+    environment:
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8000:8000"
+    command: python src/main.py
+    depends_on:
+      - redis
+      - postgres
+
+  redis:
+    image: redis:7-alpine
+    container_name: scheduler-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: scheduler-postgres
+    environment:
+      POSTGRES_DB: scheduler
+      POSTGRES_USER: scheduler
+      POSTGRES_PASSWORD: scheduler
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  jupyter:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.jupyter
+    container_name: scheduler-jupyter
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./src:/app/src
+      - ./notebooks:/app/notebooks
+      - ./data:/app/data
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    command: jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root
+
+volumes:
+  redis_data:
+  postgres_data:
