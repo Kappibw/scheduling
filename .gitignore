@@ -71,8 +71,7 @@ output/
 *.pkl
 *.joblib
 
-# Submodule tracking
-spacecraft_scheduler/
+# Submodule tracking (handled automatically by git submodules)
 
 # Keep persistent directories but ignore their contents
 data/*

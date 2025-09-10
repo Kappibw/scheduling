@@ -1,0 +1,3 @@
+[submodule "spacecraft_scheduler"]
+	path = spacecraft_scheduler
+	url = https://github.com/Kappibw/spacecraft_scheduler
