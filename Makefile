@@ -1,6 +1,6 @@
 # Makefile for Spacecraft Scheduler Configuration
 
-.PHONY: help build up down clean test lint format install dev
+.PHONY: help build up down clean setup-dirs jupyter setup
 
 # Default target
 help:
@@ -9,11 +9,6 @@ help:
 	@echo "  up        - Start development environment"
 	@echo "  down      - Stop development environment"
 	@echo "  clean     - Clean up containers and volumes"
-	@echo "  test      - Run tests"
-	@echo "  lint      - Run linting"
-	@echo "  format    - Format code"
-	@echo "  install   - Install dependencies locally"
-	@echo "  dev       - Start development environment"
 	@echo "  jupyter   - Show Jupyter Lab access info"
 
 # Docker commands
@@ -29,25 +24,6 @@ down:
 clean:
 	docker-compose down -v --remove-orphans
 	docker system prune -f
-
-# Development commands
-install:
-	pip install -r requirements/simple.txt
-
-dev:
-	pip install -r requirements/simple.txt -r requirements/jupyter.txt
-
-# Testing and quality
-test:
-	pytest tests/ -v --cov=src
-
-lint:
-	flake8 src/ tests/
-	mypy src/
-
-format:
-	black src/ tests/
-	isort src/ tests/
 
 # Data and results directories
 setup-dirs:
