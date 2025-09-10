@@ -49,11 +49,9 @@ spacecraft_scheduler_config/
 
 ```bash
 make help          # Show all available commands
-make setup         # Initialize submodules and setup environment
-make build         # Build Docker images
-make up            # Start research environment
-make down          # Stop research environment
-make research      # Run algorithm research
+make build         # Build Docker image with spacecraft scheduler dependencies
+make up            # Start development environment
+make down          # Stop development environment
 make jupyter       # Show Jupyter Lab access info
 make clean         # Clean up containers and volumes
 ```
@@ -63,39 +61,39 @@ make clean         # Clean up containers and volumes
 ### Using Cursor/VS Code
 1. Open this repository in Cursor
 2. Use "Remote-Containers: Reopen in Container"
-3. The research code will be available in `/app/research-code/`
+3. The spacecraft scheduler code will be available in `/app/spacecraft_scheduler/`
 4. All your changes will be reflected in the container
 
 ### Using Jupyter Lab
 1. Run `make up`
 2. Open http://localhost:8888 in your browser
-3. Navigate to the research-code directory
-4. Open and run the research notebooks
+3. Navigate to the spacecraft_scheduler directory
+4. Open and run the development notebooks
 
 ### Command Line Development
 1. Run `make up`
-2. Connect to the container: `docker exec -it scheduling-research /bin/bash`
-3. Navigate to `/app/research-code/` to access the research code
+2. Connect to the container: `docker exec -it spacecraft-scheduler-dev /bin/bash`
+3. Navigate to `/app/spacecraft_scheduler/` to access the scheduler code
 
 ## 📁 Submodule Management
 
-### Adding the Research Code Repository
+### Adding the Spacecraft Scheduler Repository
 ```bash
-# Add your research repository as a submodule
-git submodule add <your-research-repo-url> research-code
+# Add your spacecraft scheduler repository as a submodule
+git submodule add <spacecraft-scheduler-repo-url> spacecraft_scheduler
 
 # Initialize and update submodules
 git submodule update --init --recursive
 ```
 
-### Updating Research Code
+### Updating Spacecraft Scheduler Code
 ```bash
-# Update to latest version of research code
-git submodule update --remote research-code
+# Update to latest version of spacecraft scheduler code
+git submodule update --remote spacecraft_scheduler
 
 # Commit the submodule update
-git add research-code
-git commit -m "Update research code submodule"
+git add spacecraft_scheduler
+git commit -m "Update spacecraft scheduler submodule"
 ```
 
 ### Working with Submodules
@@ -110,41 +108,42 @@ git submodule update --init --recursive
 ## 🐳 Docker Configuration
 
 The Docker setup includes:
-- **Research Container**: Python 3.10 with all optimization libraries
+- **Single Container**: Python 3.10 with all spacecraft scheduler dependencies
+- **Build Time Dependencies**: Submodule requirements installed during build
 - **Jupyter Lab**: Interactive development environment
 - **Volume Mounting**: Live code editing from host
-- **Development Tools**: All necessary packages for algorithm research
+- **Persistent Storage**: Data, results, and logs persist across restarts
 
-## 📊 Research Environment Features
+## 📊 Development Environment Features
 
-- **Algorithm Comparison Framework**: Test and compare different scheduling algorithms
+- **Algorithm Development**: Test and develop spacecraft scheduling algorithms
 - **Test Case Management**: Create and manage test scenarios
 - **Performance Visualization**: Generate charts and reports
 - **Interactive Development**: Jupyter notebooks for experimentation
-- **Automated Testing**: Run comprehensive algorithm evaluations
+- **Persistent Data**: All data, results, and logs persist across container restarts
 
 ## 🔄 Workflow for Algorithm Development
 
-1. **Develop algorithms** in the research-code repository
+1. **Develop algorithms** in the spacecraft_scheduler repository
 2. **Test locally** using the Docker environment
 3. **Compare performance** using the built-in framework
 4. **Visualize results** with generated charts and reports
-5. **Commit changes** to the research-code repository
+5. **Commit changes** to the spacecraft_scheduler repository
 6. **Update submodule** in this configuration repository
 
 ## 📝 Configuration Files
 
 - `docker-compose.yml`: Main Docker Compose configuration
-- `docker/Dockerfile.research`: Research environment Docker image
+- `docker/Dockerfile`: Spacecraft scheduler development Docker image
 - `.devcontainer/devcontainer.json`: Cursor/VS Code development container
-- `scripts/setup.sh`: Automated setup script
+- `scripts/add-spacecraft-scheduler.sh`: Script to add spacecraft scheduler submodule
 - `Makefile`: Common commands and shortcuts
 
 ## 🤝 Contributing
 
-1. Make changes to the research code in the research-code submodule
+1. Make changes to the spacecraft scheduler code in the spacecraft_scheduler submodule
 2. Test your changes using this configuration environment
-3. Commit changes to the research-code repository
+3. Commit changes to the spacecraft_scheduler repository
 4. Update the submodule reference in this repository
 5. Submit a pull request with both repository updates
 
@@ -152,4 +151,11 @@ The Docker setup includes:
 
 For issues with:
 - **Docker/Infrastructure**: Create an issue in this repository
-- **Research Code/Algorithms**: Create an issue in the research-code repository
+- **Spacecraft Scheduler Code/Algorithms**: Create an issue in the spacecraft_scheduler repository
+
+## 📚 Documentation
+
+- [Quick Start Guide](docs/QUICK_START.md) - Get up and running in 5 minutes
+- [Setup Guide](docs/SETUP.md) - Detailed setup instructions
+- [Architecture Overview](docs/ARCHITECTURE.md) - System architecture and design decisions
+- [Requirements Management](docs/REQUIREMENTS.md) - Managing Python dependencies
