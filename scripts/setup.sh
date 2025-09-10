@@ -45,7 +45,7 @@ mkdir -p results test_cases logs
 
 # Build Docker images
 echo "🐳 Building Docker images..."
-docker-compose -f docker-compose.yml build
+docker-compose build
 
 echo ""
 echo "✅ Setup complete!"

@@ -16,6 +16,7 @@ help:
 	@echo "  dev       - Start development environment"
 	@echo "  research  - Run algorithm research and comparison"
 	@echo "  jupyter   - Start Jupyter Lab"
+	@echo "  install-research-requirements - Install research-specific dependencies"
 
 # Docker commands
 build:
@@ -66,6 +67,9 @@ jupyter:
 	@echo "Jupyter Lab available at: http://localhost:8888"
 	@echo "No password required for development"
 	@echo "Research code is available in /app/research-code/"
+
+install-research-requirements:
+	docker-compose exec research /usr/local/bin/install-research-requirements.sh
 
 # Run demo
 demo:

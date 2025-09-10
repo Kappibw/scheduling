@@ -15,8 +15,23 @@ RUN apt-get update && apt-get install -y \
 # Copy requirements first for better caching
 COPY requirements/ requirements/
 
-# Install Python dependencies
+# Install base Python dependencies
 RUN pip install --no-cache-dir -r requirements/simple.txt -r requirements/jupyter.txt
+
+# Copy setup scripts
+COPY scripts/install-research-requirements.sh /usr/local/bin/install-research-requirements.sh
+RUN chmod +x /usr/local/bin/install-research-requirements.sh
+
+# Create entrypoint script
+RUN echo '#!/bin/bash\n\
+# Install research requirements if submodule is available\n\
+if [ -d "/app/research-code/requirements" ]; then\n\
+    echo "Installing research-specific requirements..."\n\
+    /usr/local/bin/install-research-requirements.sh\n\
+fi\n\
+\n\
+# Start the main command\n\
+exec "$@"' > /entrypoint.sh && chmod +x /entrypoint.sh
 
 # Copy research code (will be mounted as volume in development)
 # The research-code directory will be mounted as a volume
