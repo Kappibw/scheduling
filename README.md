@@ -42,10 +42,15 @@ cd spacecraft_scheduler_config
 git submodule add git@github.com:Kappibw/spacecraft_scheduler.git spacecraft_scheduler
 ```
 
-### 3. Build and Start the Development Environment
+### 3. License Gurobi Solver
+Visit [Gurobi](https://www.gurobi.com/academia/academic-program-and-licenses/?utm_source=google&utm_medium=cpc&utm_campaign=M3+A+PMax+EMEA+Brand&gad_source=1&gad_campaignid=22970948822&gbraid=0AAAAADimQ3hJD6a2MNA-rPy1uSHJ_sKyE&gclid=Cj0KCQjww4TGBhCKARIsAFLXndTgfZYldMaVmXvctUxRHTydo5hJO8E0fak_fWxy_iL7tE7VgCZbhyEaAmLmEALw_wcB) to claim a free academic license.
+
+Chose *WSL Academic* as the license type and downlod the `gurobi.lic` file into `licenses/`.
+
+### 4. Build and Start the Development Environment. This will drop you into an interactive shell in the container.
 ```bash
 make build
-make up
+make shell
 ```
 
 ## Available Commands

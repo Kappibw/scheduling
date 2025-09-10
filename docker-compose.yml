@@ -11,10 +11,15 @@ services:
       - ./data:/app/data
       - ./results:/app/results
       - ./logs:/app/logs
+      - ./licenses/gurobi.lic:/opt/gurobi/gurobi.lic:ro
+      - ./scripts/.bashrc:/root/.bashrc:ro
     environment:
       - PYTHONPATH=/app:/app/spacecraft_scheduler
       - PYTHONUNBUFFERED=1
+      - GRB_LICENSE_FILE=/opt/gurobi/gurobi.lic
+      - GRB_USE_TLS=1
     ports:
       - "8888:8888"  # Jupyter Lab
+    command: bash
     stdin_open: true
     tty: true

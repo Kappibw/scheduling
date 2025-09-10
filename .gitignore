@@ -80,3 +80,5 @@ results/*
 !results/.gitkeep
 logs/*
 !logs/.gitkeep
+licenses/*
+!licenses/.gitkeep
