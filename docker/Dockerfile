@@ -12,24 +12,36 @@ RUN apt-get update && apt-get install -y \
     cmake \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first for better caching
+# Copy base requirements first for better caching
 COPY requirements/ requirements/
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements/base.txt
+# Install base Python dependencies
+RUN pip install --no-cache-dir -r requirements/simple.txt -r requirements/jupyter.txt
 
-# Copy source code
-COPY src/ src/
-COPY tests/ tests/
+# Copy spacecraft scheduler submodule (must be present at build time)
+COPY spacecraft_scheduler/ spacecraft_scheduler/
+
+# Install spacecraft scheduler dependencies if they exist
+RUN if [ -d "spacecraft_scheduler/requirements" ]; then \
+        echo "Installing spacecraft scheduler dependencies..."; \
+        for req_file in spacecraft_scheduler/requirements/*.txt; do \
+            if [ -f "$req_file" ]; then \
+                echo "Installing from $(basename "$req_file")..."; \
+                pip install --no-cache-dir -r "$req_file"; \
+            fi; \
+        done; \
+    else \
+        echo "No spacecraft scheduler requirements found"; \
+    fi
 
 # Set Python path
-ENV PYTHONPATH=/app
+ENV PYTHONPATH=/app:/app/spacecraft_scheduler
 
-# Create directories for data and results
-RUN mkdir -p /app/data /app/results
+# Create directories
+RUN mkdir -p /app/data /app/results /app/logs
 
-# Expose port
-EXPOSE 8000
+# Expose Jupyter port
+EXPOSE 8888
 
-# Default command
-CMD ["python", "src/main.py"]
+# Start Jupyter Lab
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--NotebookApp.token=''", "--NotebookApp.password=''"]

@@ -67,11 +67,17 @@ ehthumbs.db
 Thumbs.db
 
 # Project specific
-data/
-results/
 output/
 *.pkl
 *.joblib
 
 # Submodule tracking
-research-code/
+spacecraft_scheduler/
+
+# Keep persistent directories but ignore their contents
+data/*
+!data/.gitkeep
+results/*
+!results/.gitkeep
+logs/*
+!logs/.gitkeep

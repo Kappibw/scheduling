@@ -1,16 +1,19 @@
-# Robot Scheduling Research Environment
+# Spacecraft Scheduler Configuration
 
-This repository contains the Docker configuration and infrastructure setup for the robot scheduling research environment. The actual research code is managed in a separate repository and linked via git submodules.
+This repository contains the Docker configuration and infrastructure setup for the spacecraft scheduler development environment. The actual scheduler code is managed in a separate repository and linked via git submodules.
 
 ## 🏗️ Repository Structure
 
 ```
-scheduling-config/
+spacecraft_scheduler_config/
 ├── docker/                    # Docker configuration files
 ├── .devcontainer/            # Cursor/VS Code development container config
 ├── scripts/                  # Setup and management scripts
 ├── docs/                     # Documentation
-├── research-code/            # Git submodule (main research repository)
+├── spacecraft_scheduler/     # Git submodule (main scheduler repository)
+├── data/                     # Persistent data directory
+├── results/                  # Persistent results directory
+├── logs/                     # Persistent logs directory
 └── docker-compose.yml        # Main Docker Compose configuration
 ```
 
@@ -24,16 +27,17 @@ scheduling-config/
 1. **Clone this repository:**
    ```bash
    git clone <this-repo-url>
-   cd scheduling-config
+   cd spacecraft_scheduler_config
    ```
 
-2. **Initialize the research code submodule:**
+2. **Add the spacecraft scheduler submodule:**
    ```bash
-   ./scripts/setup.sh
+   ./scripts/add-spacecraft-scheduler.sh <spacecraft-scheduler-repo-url>
    ```
 
-3. **Start the research environment:**
+3. **Build and start the development environment:**
    ```bash
+   make build
    make up
    ```
 

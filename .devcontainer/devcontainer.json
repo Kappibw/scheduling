@@ -1,7 +1,7 @@
 {
-    "name": "Robot Scheduling Research",
-    "dockerComposeFile": "../docker-compose.research.yml",
-    "service": "research",
+    "name": "Spacecraft Scheduler Development",
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "spacecraft_scheduler",
     "workspaceFolder": "/app",
     
     "customizations": {
@@ -32,8 +32,8 @@
     "postCreateCommand": "pip install --upgrade pip && pip install -r requirements/simple.txt -r requirements/jupyter.txt",
     
     "mounts": [
-        "source=${localWorkspaceFolder}/research-code,target=/app/research-code,type=bind,consistency=cached",
-        "source=${localWorkspaceFolder}/test_cases,target=/app/test_cases,type=bind,consistency=cached",
+        "source=${localWorkspaceFolder}/spacecraft_scheduler,target=/app/spacecraft_scheduler,type=bind,consistency=cached",
+        "source=${localWorkspaceFolder}/data,target=/app/data,type=bind,consistency=cached",
         "source=${localWorkspaceFolder}/results,target=/app/results,type=bind,consistency=cached",
         "source=${localWorkspaceFolder}/logs,target=/app/logs,type=bind,consistency=cached"
     ],

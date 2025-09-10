@@ -1,6 +1,6 @@
 # Example .gitmodules file
 # Copy this to .gitmodules and update with your actual repository URL
 
-[submodule "research-code"]
-	path = research-code
-	url = https://github.com/yourusername/robot-scheduling-research.git
+[submodule "spacecraft_scheduler"]
+	path = spacecraft_scheduler
+	url = https://github.com/yourusername/spacecraft_scheduler.git

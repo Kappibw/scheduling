@@ -1,6 +1,6 @@
 # Setup Guide
 
-This guide will help you set up the robot scheduling research environment with git submodules.
+This guide will help you set up the spacecraft scheduler development environment with git submodules.
 
 ## Prerequisites
 
@@ -14,30 +14,27 @@ This guide will help you set up the robot scheduling research environment with g
 
 ```bash
 git clone <this-config-repo-url>
-cd scheduling-config
+cd spacecraft_scheduler_config
 ```
 
-### 2. Add Your Research Repository as a Submodule
+### 2. Add the Spacecraft Scheduler Repository as a Submodule
 
 ```bash
-# Option A: Use the helper script
-./scripts/add-research-repo.sh <your-research-repo-url>
+# Use the helper script
+./scripts/add-spacecraft-scheduler.sh <spacecraft-scheduler-repo-url>
 
-# Option B: Manual setup
-git submodule add <your-research-repo-url> research-code
+# Or manual setup
+git submodule add <spacecraft-scheduler-repo-url> spacecraft_scheduler
 ```
 
-### 3. Initialize the Environment
+### 3. Build the Development Environment
 
 ```bash
-# Run the setup script
-./scripts/setup.sh
-
-# Or use make
-make setup
+# Build the container with all dependencies
+make build
 ```
 
-### 4. Start the Research Environment
+### 4. Start the Development Environment
 
 ```bash
 make up
@@ -50,11 +47,11 @@ make up
 
 ## Detailed Setup
 
-### Step 1: Prepare Your Research Repository
+### Step 1: Prepare Your Spacecraft Scheduler Repository
 
-Your research repository should have this structure:
+Your spacecraft scheduler repository should have this structure:
 ```
-your-research-repo/
+spacecraft_scheduler/
 ├── src/
 │   ├── algorithms/        # Your scheduling algorithms
 │   ├── common/           # Task/resource representations
@@ -63,17 +60,17 @@ your-research-repo/
 ├── tests/                # Unit tests
 ├── notebooks/            # Jupyter notebooks
 ├── requirements/         # Python dependencies
-└── research.py          # Main research script
+└── main.py              # Main scheduler script
 ```
 
 ### Step 2: Add as Submodule
 
 ```bash
 # Using the helper script (recommended)
-./scripts/add-research-repo.sh https://github.com/yourusername/your-research-repo.git
+./scripts/add-spacecraft-scheduler.sh https://github.com/yourusername/spacecraft_scheduler.git
 
 # Or manually
-git submodule add https://github.com/yourusername/your-research-repo.git research-code
+git submodule add https://github.com/yourusername/spacecraft_scheduler.git spacecraft_scheduler
 ```
 
 ### Step 3: Initialize Submodules
@@ -91,24 +88,24 @@ make up
 
 ## Working with Submodules
 
-### Updating Research Code
+### Updating Spacecraft Scheduler Code
 
 ```bash
 # Update to latest version
-git submodule update --remote research-code
+git submodule update --remote spacecraft_scheduler
 
 # Commit the update
-git add research-code
-git commit -m "Update research code submodule"
+git add spacecraft_scheduler
+git commit -m "Update spacecraft scheduler submodule"
 ```
 
-### Making Changes to Research Code
+### Making Changes to Spacecraft Scheduler Code
 
-1. **Edit code** in the `research-code/` directory
+1. **Edit code** in the `spacecraft_scheduler/` directory
 2. **Test changes** using the Docker environment
-3. **Commit to research repository**:
+3. **Commit to spacecraft scheduler repository**:
    ```bash
-   cd research-code
+   cd spacecraft_scheduler
    git add .
    git commit -m "Your changes"
    git push
@@ -116,8 +113,8 @@ git commit -m "Update research code submodule"
 4. **Update submodule reference**:
    ```bash
    cd ..
-   git add research-code
-   git commit -m "Update research code submodule"
+   git add spacecraft_scheduler
+   git commit -m "Update spacecraft scheduler submodule"
    ```
 
 ### Cloning with Submodules

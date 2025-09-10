@@ -1,22 +1,20 @@
-# Makefile for Robot Scheduling Research System
+# Makefile for Spacecraft Scheduler Configuration
 
-.PHONY: help build up down clean test lint format install dev research
+.PHONY: help build up down clean test lint format install dev
 
 # Default target
 help:
-	@echo "Robot Scheduling Research System - Available commands:"
-	@echo "  build     - Build research Docker image"
-	@echo "  up        - Start research environment"
-	@echo "  down      - Stop research environment"
+	@echo "Spacecraft Scheduler Configuration - Available commands:"
+	@echo "  build     - Build Docker image with spacecraft scheduler dependencies"
+	@echo "  up        - Start development environment"
+	@echo "  down      - Stop development environment"
 	@echo "  clean     - Clean up containers and volumes"
 	@echo "  test      - Run tests"
 	@echo "  lint      - Run linting"
 	@echo "  format    - Format code"
 	@echo "  install   - Install dependencies locally"
 	@echo "  dev       - Start development environment"
-	@echo "  research  - Run algorithm research and comparison"
-	@echo "  jupyter   - Start Jupyter Lab"
-	@echo "  install-research-requirements - Install research-specific dependencies"
+	@echo "  jupyter   - Show Jupyter Lab access info"
 
 # Docker commands
 build:
@@ -53,32 +51,17 @@ format:
 
 # Data and results directories
 setup-dirs:
-	mkdir -p results test_cases logs
+	mkdir -p data results logs
 
-# Setup submodules
-setup:
-	./scripts/setup.sh
-
-# Research commands
-research:
-	docker-compose exec research bash -c "cd /app/research-code && python research.py"
-
+# Development commands
 jupyter:
 	@echo "Jupyter Lab available at: http://localhost:8888"
 	@echo "No password required for development"
-	@echo "Research code is available in /app/research-code/"
-
-install-research-requirements:
-	docker-compose exec research /usr/local/bin/install-research-requirements.sh
-
-# Run demo
-demo:
-	python src/main.py --demo
-
-# Run with custom data
-run:
-	python src/main.py --tasks data/tasks.json --resources data/resources.json
+	@echo "Spacecraft scheduler code is available in /app/spacecraft_scheduler/"
 
 # Full setup
-setup: setup-dirs install
-	@echo "Setup complete! Run 'make research' to test the system."
+setup: setup-dirs
+	@echo "Setup complete! Next steps:"
+	@echo "  1. Add spacecraft scheduler submodule: ./scripts/add-spacecraft-scheduler.sh <repo-url>"
+	@echo "  2. Build container: make build"
+	@echo "  3. Start environment: make up"
