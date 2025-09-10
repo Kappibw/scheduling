@@ -19,16 +19,16 @@ help:
 
 # Docker commands
 build:
-	docker-compose -f docker-compose.research.yml build
+	docker-compose build
 
 up:
-	docker-compose -f docker-compose.research.yml up -d
+	docker-compose up -d
 
 down:
-	docker-compose -f docker-compose.research.yml down
+	docker-compose down
 
 clean:
-	docker-compose -f docker-compose.research.yml down -v --remove-orphans
+	docker-compose down -v --remove-orphans
 	docker system prune -f
 
 # Development commands
@@ -52,15 +52,20 @@ format:
 
 # Data and results directories
 setup-dirs:
-	mkdir -p data results logs notebooks
+	mkdir -p results test_cases logs
+
+# Setup submodules
+setup:
+	./scripts/setup.sh
 
 # Research commands
 research:
-	docker-compose -f docker-compose.research.yml exec research python research.py
+	docker-compose exec research bash -c "cd /app/research-code && python research.py"
 
 jupyter:
 	@echo "Jupyter Lab available at: http://localhost:8888"
 	@echo "No password required for development"
+	@echo "Research code is available in /app/research-code/"
 
 # Run demo
 demo:

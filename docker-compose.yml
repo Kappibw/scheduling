@@ -1,61 +1,21 @@
 version: '3.8'
 
 services:
-  scheduler:
+  research:
     build:
       context: .
-      dockerfile: docker/Dockerfile.simple
-    container_name: robot-scheduler
+      dockerfile: docker/Dockerfile.research
+    container_name: scheduling-research
     volumes:
-      - ./src:/app/src
-      - ./tests:/app/tests
-      - ./data:/app/data
+      - ./research-code:/app/research-code
       - ./results:/app/results
+      - ./test_cases:/app/test_cases
+      - ./logs:/app/logs
     environment:
-      - PYTHONPATH=/app
+      - PYTHONPATH=/app:/app/research-code
       - PYTHONUNBUFFERED=1
     ports:
-      - "8000:8000"
-    command: python src/main.py --demo
-    depends_on:
-      - redis
-      - postgres
-
-  redis:
-    image: redis:7-alpine
-    container_name: scheduler-redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
-
-  postgres:
-    image: postgres:15-alpine
-    container_name: scheduler-postgres
-    environment:
-      POSTGRES_DB: scheduler
-      POSTGRES_USER: scheduler
-      POSTGRES_PASSWORD: scheduler
-    ports:
-      - "5433:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-  jupyter:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile.jupyter
-    container_name: scheduler-jupyter
-    ports:
-      - "8888:8888"
-    volumes:
-      - ./src:/app/src
-      - ./notebooks:/app/notebooks
-      - ./data:/app/data
-    environment:
-      - JUPYTER_ENABLE_LAB=yes
-    command: jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root
-
-volumes:
-  redis_data:
-  postgres_data:
+      - "8888:8888"  # Jupyter Lab
+    command: jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''
+    stdin_open: true
+    tty: true

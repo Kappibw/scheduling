@@ -32,11 +32,10 @@
     "postCreateCommand": "pip install --upgrade pip && pip install -r requirements/simple.txt -r requirements/jupyter.txt",
     
     "mounts": [
-        "source=${localWorkspaceFolder}/src,target=/app/src,type=bind,consistency=cached",
-        "source=${localWorkspaceFolder}/tests,target=/app/tests,type=bind,consistency=cached",
+        "source=${localWorkspaceFolder}/research-code,target=/app/research-code,type=bind,consistency=cached",
         "source=${localWorkspaceFolder}/test_cases,target=/app/test_cases,type=bind,consistency=cached",
         "source=${localWorkspaceFolder}/results,target=/app/results,type=bind,consistency=cached",
-        "source=${localWorkspaceFolder}/notebooks,target=/app/notebooks,type=bind,consistency=cached"
+        "source=${localWorkspaceFolder}/logs,target=/app/logs,type=bind,consistency=cached"
     ],
     
     "forwardPorts": [8888],
