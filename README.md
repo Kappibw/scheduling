@@ -2,7 +2,7 @@
 
 This repository contains the Docker configuration and infrastructure setup for the spacecraft scheduler development environment. The actual scheduler code is managed in a separate repository and linked via git submodules.
 
-## 🏗️ Repository Structure
+## Repository Structure
 
 ```
 spacecraft_scheduler_config/
@@ -21,7 +21,7 @@ spacecraft_scheduler_config/
 └── Makefile                    # Common commands
 ```
 
-## 🚀 Quick Setup (5 Minutes)
+## Quick Setup (5 Minutes)
 
 ### Prerequisites
 - Docker and Docker Compose
@@ -33,13 +33,13 @@ git clone <this-config-repo-url>
 cd spacecraft_scheduler_config
 ```
 
-### 2. Add Your Spacecraft Scheduler Repository as a Submodule
+### 2. Add Spacecraft Scheduler Repository as a Submodule
 ```bash
 # Using the helper script (recommended)
-./scripts/add-spacecraft-scheduler.sh <spacecraft-scheduler-repo-url>
+./scripts/add-spacecraft-scheduler.sh git@github.com:Kappibw/spacecraft_scheduler.git
 
 # Or manually
-git submodule add <spacecraft-scheduler-repo-url> spacecraft_scheduler
+git submodule add git@github.com:Kappibw/spacecraft_scheduler.git spacecraft_scheduler
 ```
 
 ### 3. Build and Start the Development Environment
@@ -47,10 +47,6 @@ git submodule add <spacecraft-scheduler-repo-url> spacecraft_scheduler
 make build
 make up
 ```
-
-### 4. Access the Environment
-- **Jupyter Lab**: http://localhost:8888
-- **Cursor Dev Container**: Use "Remote-Containers: Reopen in Container"
 
 ## 🔧 Available Commands
 
@@ -63,17 +59,17 @@ make clean         # Clean up containers and volumes
 make jupyter       # Show Jupyter Lab access info
 ```
 
-## 💻 Development Workflow
+## Development Workflow
 
-### Option 1: Using Cursor/VS Code Dev Container (Recommended)
+### Option 1: Using Cursor/VS Code Dev Container
 
 1. **Open this repository in Cursor**
 2. **Reopen in Container**: 
    - Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux)
    - Type "Remote-Containers: Reopen in Container"
    - Select it and wait for the container to build and start
-3. **Your spacecraft scheduler code** will be available in `/app/spacecraft_scheduler/`
-4. **Make changes** directly in the container - they'll be reflected on your host
+3. **Spacecraft scheduler code** will be available in `/app/spacecraft_scheduler/`
+4. **Make changes** directly in the container - they'll be reflected on the host
 5. **All dependencies** are pre-installed and ready to use
 
 ### Option 2: Using Jupyter Lab
@@ -97,29 +93,8 @@ make jupyter       # Show Jupyter Lab access info
    ```bash
    docker exec -it spacecraft-scheduler-dev /bin/bash
    ```
-3. **Navigate to** `/app/spacecraft_scheduler/` to access your scheduler code
+3. **Navigate to** `/app/spacecraft_scheduler/` to access scheduler code
 4. **Run Python scripts** directly in the container
-
-## 📁 Working with Submodules
-
-### Adding the Spacecraft Scheduler Repository
-```bash
-# Using the helper script (recommended)
-./scripts/add-spacecraft-scheduler.sh <spacecraft-scheduler-repo-url>
-
-# Or manually
-git submodule add <spacecraft-scheduler-repo-url> spacecraft_scheduler
-```
-
-### Updating Spacecraft Scheduler Code
-```bash
-# Update to latest version
-git submodule update --remote spacecraft_scheduler
-
-# Commit the update
-git add spacecraft_scheduler
-git commit -m "Update spacecraft scheduler submodule"
-```
 
 ### Making Changes to Spacecraft Scheduler Code
 1. **Edit code** in the `spacecraft_scheduler/` directory
@@ -138,16 +113,7 @@ git commit -m "Update spacecraft scheduler submodule"
    git commit -m "Update spacecraft scheduler submodule"
    ```
 
-### Cloning with Submodules
-```bash
-# Clone with submodules
-git clone --recursive <this-repo-url>
-
-# Or if already cloned, initialize submodules
-git submodule update --init --recursive
-```
-
-## 🐳 Docker Configuration
+## Docker Configuration
 
 The Docker setup includes:
 - **Single Container**: Python 3.10 with all spacecraft scheduler dependencies
@@ -156,7 +122,7 @@ The Docker setup includes:
 - **Volume Mounting**: Live code editing from host
 - **Persistent Storage**: Data, results, and logs persist across restarts
 
-## 📊 Persistent Data
+## Persistent Data
 
 The following directories persist across container restarts:
 - `data/` - Input data files
@@ -164,69 +130,3 @@ The following directories persist across container restarts:
 - `logs/` - Application logs
 
 These directories are owned by the configuration repository and shared with the spacecraft scheduler submodule.
-
-## 🔄 Complete Development Workflow
-
-1. **Clone this configuration repository**
-2. **Add your spacecraft scheduler repository as a submodule**
-3. **Build the Docker environment**: `make build`
-4. **Start the environment**: `make up`
-5. **Open in Cursor dev container** or use Jupyter Lab
-6. **Develop your algorithms** in the spacecraft_scheduler directory
-7. **Test and iterate** using the containerized environment
-8. **Commit changes** to the spacecraft scheduler repository
-9. **Update submodule reference** in this configuration repository
-
-## 🆘 Troubleshooting
-
-### Container Won't Start
-```bash
-# Check logs
-docker-compose logs spacecraft_scheduler
-
-# Rebuild
-make clean
-make build
-make up
-```
-
-### Submodule Issues
-```bash
-# Reinitialize submodule
-git submodule deinit spacecraft_scheduler
-git submodule update --init spacecraft_scheduler
-```
-
-### Missing Dependencies
-```bash
-# Rebuild container (dependencies are installed at build time)
-make build
-```
-
-### Dev Container Not Working
-1. **Check Docker is running**
-2. **Try rebuilding**: `make clean && make build`
-3. **Restart Cursor/VS Code**
-4. **Check .devcontainer/devcontainer.json** is correct
-
-## 📝 Configuration Files
-
-- `docker-compose.yml`: Main Docker Compose configuration
-- `docker/Dockerfile`: Spacecraft scheduler development Docker image
-- `.devcontainer/devcontainer.json`: Cursor/VS Code development container
-- `scripts/add-spacecraft-scheduler.sh`: Script to add spacecraft scheduler submodule
-- `Makefile`: Common commands and shortcuts
-
-## 🤝 Contributing
-
-1. Make changes to the spacecraft scheduler code in the spacecraft_scheduler submodule
-2. Test your changes using this configuration environment
-3. Commit changes to the spacecraft_scheduler repository
-4. Update the submodule reference in this repository
-5. Submit a pull request with both repository updates
-
-## 📞 Support
-
-For issues with:
-- **Docker/Infrastructure**: Create an issue in this repository
-- **Spacecraft Scheduler Code/Algorithms**: Create an issue in the spacecraft_scheduler repository
