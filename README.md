@@ -21,7 +21,7 @@ spacecraft_scheduler_config/
 └── Makefile                    # Common commands
 ```
 
-## Quick Setup (5 Minutes)
+## Quick Setup
 
 ### Prerequisites
 - Docker and Docker Compose
@@ -48,7 +48,7 @@ make build
 make up
 ```
 
-## 🔧 Available Commands
+## Available Commands
 
 ```bash
 make help          # Show all available commands
